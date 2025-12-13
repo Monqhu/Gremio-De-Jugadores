@@ -15,6 +15,7 @@ export const register = async(req: Request, res: Response): Promise<void> => {
       ]
     })
 
+    //En caso de existir el usuario el código acaba dentro del 'if'
     if(existingUser) {
       res.status(400).json({message: 'El nombre de usuario o el email ya están en uso'});
       return;
@@ -49,5 +50,22 @@ export const register = async(req: Request, res: Response): Promise<void> => {
     res.status(500).json({message: 'Error al registrar el usuario'});
 
 
+  }
+}
+
+export const getAllUsers = async(req: Request, res: Response): Promise<void> => {
+  try{
+    const users = await User.find().select('-password'); //Excluir la contraseña
+
+    res.status(200).json({
+      message: 'Usuarios obtenidos exitosamente',
+      count: users.length,
+      users
+    });
+  } catch(error) {
+    console.error('Error al obtener usuarios:', error);
+    res.status(500).json({ 
+      message: 'Error al obtener usuarios' 
+    });
   }
 }

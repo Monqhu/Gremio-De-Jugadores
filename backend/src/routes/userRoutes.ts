@@ -4,7 +4,7 @@ import {
   //login, 
   //getProfile, 
   //updateProfile,
-  //getAllUsers,
+  getAllUsers,
   //
 } from '../controllers/userController.js';
 
@@ -19,7 +19,7 @@ router.post('/register', register);
 //router.put('/profile', updateProfile);
 
 // Rutas de administrador
-//router.get('/', getAllUsers);
+router.get('/', getAllUsers);
 //router.delete('/:id', deleteUser);
 
 export default router;
