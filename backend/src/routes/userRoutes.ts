@@ -5,6 +5,7 @@ import {
   //getProfile, 
   //updateProfile,
   getAllUsers,
+  getUserByUsername,
   //
 } from '../controllers/userController.js';
 
@@ -17,6 +18,7 @@ router.post('/register', register);
 // Rutas protegidas (requieren autenticación) - las implementaremos después
 //router.get('/profile', getProfile);
 //router.put('/profile', updateProfile);
+router.get('/:username', getUserByUsername);
 
 // Rutas de administrador
 router.get('/', getAllUsers);

@@ -69,3 +69,33 @@ export const getAllUsers = async(req: Request, res: Response): Promise<void> => 
     });
   }
 }
+
+export const getUserByUsername = async(req: Request, res: Response): Promise<void> => {
+  try{
+    const {username} = req.params;
+
+    // Verificar que username existe, si no ponemos este paso la constante 'user' más abajo se buggea porque typescript no entiende bien el tipado de username
+    if(!username){
+      res.status(400).json({message: "Debes introducir un nombre de usuario"});
+      return;
+    }
+
+    //Recuperar el usuario de la base de datos excluyendo la contraseña
+    const user = await User.findOne({ username }).select('-password');
+
+    if(!user){
+      res.status(404).json({message: "Usuario no encontrado"})
+      return;
+    }
+
+    res.status(200).json({
+      message: "Usuario obtenido correctamente",
+      user
+    })
+  } catch(error){
+    console.error('Error al obtener usuario:', error);
+    res.status(500).json({ 
+      message: 'Error al obtener usuario' 
+    });
+  }
+}
