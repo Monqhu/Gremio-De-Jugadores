@@ -1,8 +1,8 @@
 import { type Request, type Response } from 'express';
-import { User, userValidationSchema } from '../models/User.js';
+import { User, userValidationSchema,updateUserProfileSchema } from '../models/User.js';
 import { z } from 'zod';
 
-export const register = async(req: Request, res: Response): Promise<void> => {
+export const createUser = async(req: Request, res: Response): Promise<void> => {
   try {
     //Validar los datos con el schema de Zod
     const validatedData = userValidationSchema.parse(req.body);
@@ -99,3 +99,102 @@ export const getUserByUsername = async(req: Request, res: Response): Promise<voi
     });
   }
 }
+
+export const updateUser = async(req: Request, res: Response): Promise<void> => {
+  try {
+    const { username } = req.params;
+
+    if (!username) {
+      res.status(400).json({ 
+        message: 'El username es requerido' 
+      });
+      return;
+    }
+
+    // Validar datos con Zod (esto automáticamente ignora el campo 'rol' si viene)
+    const validatedData = updateUserProfileSchema.parse(req.body);
+
+    // Buscar el usuario
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      res.status(404).json({ 
+        message: 'Usuario no encontrado' 
+      });
+      return;
+    }
+
+    // Verificar si el nuevo username ya existe (si se está actualizando)
+    if (validatedData.username && validatedData.username !== username) {
+      const existingUser = await User.findOne({ username: validatedData.username });
+      if (existingUser) {
+        res.status(400).json({ 
+          message: 'El nombre de usuario ya está en uso' 
+        });
+        return;
+      }
+    }
+
+    // Verificar si el nuevo email ya existe (si se está actualizando)
+    if (validatedData.email && validatedData.email !== user.email) {
+      const existingEmail = await User.findOne({ email: validatedData.email });
+      if (existingEmail) {
+        res.status(400).json({ 
+          message: 'El email ya está en uso' 
+        });
+        return;
+      }
+    }
+
+    // Actualizar solo los campos que vienen en validatedData
+    if (validatedData.username) {
+      user.username = validatedData.username;
+    }
+    
+    if (validatedData.email) {
+      user.email = validatedData.email;
+    }
+    
+    if (validatedData.password) {
+      user.password = validatedData.password; // Se hasheará automáticamente
+    }
+
+    // Guardar cambios
+    await user.save();
+
+    // Respuesta sin contraseña
+    const userResponse = {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      rol: user.rol,
+      updatedAt: user.updatedAt
+    };
+
+    res.status(200).json({
+      message: 'Usuario actualizado exitosamente',
+      user: userResponse
+    });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      res.status(400).json({ 
+        message: 'Errores de validación',
+        errors: error.issues
+      });
+      return;
+    }
+    
+    console.error('Error al actualizar usuario:', error);
+    res.status(500).json({ 
+      message: 'Error al actualizar usuario' 
+    });
+  }
+
+
+
+
+}
+
+
+
+
