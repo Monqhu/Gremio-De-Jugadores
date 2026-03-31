@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Variables de entorno (CRÍTICO - NO SUBIR)
+.env
+*/.env
+.env.local
+.env.*.local

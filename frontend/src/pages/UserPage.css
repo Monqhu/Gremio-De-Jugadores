@@ -1,0 +1,80 @@
+.users-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.users-page h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.users-page p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.user-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.user-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.user-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.user-card p {
+  margin: 0.5rem 0;
+  color: #666;
+  text-align: left;
+}
+
+.rol {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.rol.admin {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.rol.user {
+  background-color: #4dabf7;
+  color: white;
+}
+
+.date {
+  font-size: 0.875rem;
+  color: #999 !important;
+  margin-top: 1rem !important;
+}
+
+.error {
+  color: #ff6b6b;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
