@@ -18,7 +18,7 @@ function Navbar() {
           style={{
             borderRadius: '100%',
             aspectRatio: '1/1',
-            width: '3dvw', // Usa un tamaño fijo en píxeles
+            width: '3dvw',
           }}
         />
         <h2 style={{ margin: 0 }}>Gremio de Jugadores</h2>
