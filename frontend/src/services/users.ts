@@ -21,6 +21,5 @@ export const getUsers = async (): Promise<GetUsersResponse> => {
   if (!response.ok) {
     throw new Error('Error al obtener usuarios');
   }
-  
   return response.json();
 };
