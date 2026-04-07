@@ -18,23 +18,27 @@ function Navbar() {
           style={{
             borderRadius: '100%',
             aspectRatio: '1/1',
-            width: '3dvw',
+            width: '2dvw',
           }}
         />
         <h2 style={{ margin: 0 }}>Gremio de Jugadores</h2>
       </div>
 
-      <div>
+      <div style={{
+          width: '100%',
+          margin: 'auto',
+        }}>
         <ul 
           style={{ 
             display: 'flex', 
             gap: '1rem', 
-            listStyle: 'none' 
+            listStyle: 'none',
+            justifyContent: 'space-evenly', 
           }}>
           <li><Link to="/" style={{color: 'white', textDecoration: 'none'}}>Inicio</Link></li>
-          <li><Link to="/users" style={{color: 'white', textDecoration: 'none'}}>Usuarios</Link></li>
+          <li><Link to="/users" style={{color: 'white', textDecoration: 'none'}}>Usuarios (elimiar este apartado al acabar los CRUDs de usuario)</Link></li>
+          <li><Link to="/bookings" style={{color: 'white', textDecoration: 'none'}}>Reservas</Link></li>
           <li><Link to="/login" style={{color: 'white', textDecoration: 'none'}}>Login</Link></li>
-          <li><Link to="/register" style={{color: 'white', textDecoration: 'none'}}>Registro</Link></li>
         </ul>
       </div>
     </nav>
