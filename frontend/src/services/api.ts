@@ -16,7 +16,7 @@ export interface GetUsersResponse {
 }
 
 export const getUsers = async (): Promise<GetUsersResponse> => {
-  const response = await fetch(`${API_URL}/users`);
+  const response = await fetch(`${API_URL}/users/getAllUsers`);
   
   if (!response.ok) {
     throw new Error('Error al obtener usuarios');

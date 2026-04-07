@@ -13,13 +13,16 @@ const router = Router();
 router.post('/register', createUser);
 //router.post('/login', login);
 
+// Rutas de administrador
+router.get('/getAllUsers', getAllUsers);
+//router.delete('/:id', deleteUser);
+
+
+//NOTA IMPORTANTE: Las rutas que utilizan parámetros dinámicos deben ir al final para evitar conflictos con otras rutas.
+
 // Rutas protegidas (requieren autenticación) - las implementaremos después
 //router.get('/profile', getProfile);
 router.put('/:username', updateUser);
 router.get('/:username', getUserByUsername);
-
-// Rutas de administrador
-router.get('/', getAllUsers);
-//router.delete('/:id', deleteUser);
 
 export default router;
